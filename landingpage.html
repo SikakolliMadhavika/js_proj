@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            padding: 20px;
+            height: 100%;
+            width: 100%;
+            /* background-color: lightgray; */
+            
+        }
+
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
+        .header>*{
+            display: inline-block;
+            padding: 10px;
+            /* border: 1px solid; */
+            margin-bottom: 0;
+        }
+        .maincontainer, .companycontainer{
+            text-align: center;
+            width: 70%;
+            margin: 0 auto;
+            background-color: lightgray;
+            /* border: 1px solid blue; */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        .card, .comp{
+            width: 100%;
+            text-align: center;
+            place-self: center;
+            padding: 10px;
+            background-color: rgb(235, 232, 232);
+        }
+        .card>img, .comp>img{
+            width: 55%;
+            margin: 0 auto;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .description{
+            display: -webkit-box ;
+            -webkit-box-orient: vertical ;
+            -webkit-line-clamp: 4;
+            overflow: hidden ;
+            text-overflow: ellipsis ;
+            text-align: justify;
+        }
+        .filtercontainer {
+            border: 1px solid;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            /* grid-template-columns: repeat(4,1fr); */
+            gap: 10px;
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(52, 152, 219, 0.8)), url('/api/placeholder/1200/600') center/cover no-repeat;
+        }
+        .filtercontainercomp{
+            border: 1px solid;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-evenly;
+            /* display: grid;
+            grid-template-columns: repeat(3,1fr); */
+            gap: 10px;
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(52, 152, 219, 0.8)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            /* background-color: ; */
+            display: none;
+        }
+        select{
+            padding: 10px;
+        }
+        .menuside{
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            place-content: center;
+            gap: 10px;
+            /* place-items: center; */
+        }
+        .logoside {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logoside p {
+            color: #4CAF50;
+        }
+        
+        .logoside span {
+            color: #2196F3;
+        }
+        .menuside button{
+            height: 100%;
+            padding: 10px;
+            border: none;
+            align-self: center;
+            /* width: 100%; */
+        }
+        p{
+            margin: 0px;
+        }
+        .companycontainer{
+            display: none;
+        }
+
+
+
+
+        /* footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #bdc3c7;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: #3498db;
+        }
+        footer a{
+            text-decoration: none; */
+        /* } */
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #34495e;
+            border-radius: 50%;
+            color: #ecf0f1;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #3498db;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        .menuside>button:first-child{
+            border: 1px solid #3498db;
+            color: #3498db;
+            background-color: white;
+        }
+        .menuside>button:last-child{
+            background-color: #3498db;
+            color : white
+        }
+        .super{
+            background-color: lightgray;
+        }
+        @media screen and (max-width : 600px) {
+            .filtercontainer{
+                /* display: flex; */
+                flex-direction: column;
+                /* display: none; */
+            }
+            .filtercontainercomp{
+                display: flex;
+                flex-direction: column;
+                display: none;
+            }
+
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+
+        <div class="logoside">
+            <p>Job<span>Finder</span></p>
+        </div>
+
+        <div class="menuside">
+            <button onclick="displayjob()"><p class="jobs">Jobs</p></button>
+            <button onclick="displaycompany()" class="company"><p>Companies</p></button>
+        </div>
+
+    </div>
+
+    <div class="filtercontainer">
+        <select id="organization" ></select>
+        <select id="seniority"></select>
+        <select id="employment_type"></select>
+        <select id="title"></select>
+    </div>
+    <div class="filtercontainercomp">
+        <select id="organization_comp" ></select>
+        <select id="org_industry"></select>
+        <select id="org_type"></select>
+    </div>
+
+    <div class="super">
+        <div class="maincontainer">
+
+
+
+        </div>
+        <div class="companycontainer">
+
+        </div>
+    </div>
+    
+    
+
+    <!-- <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>JobLeads</h4>
+                    <ul type="none">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>For Candidates</h4>
+                    <ul type="none">
+                        <li><a href="#">Find Recruiters</a></li>
+                        <li><a href="#">Career Resources</a></li>
+                        <li><a href="#">Interview Prep</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>For Recruiters</h4>
+                    <ul type="none">
+                        <li><a href="#">Join Our Network</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="#"><span>FB</span></a>
+                        <a href="#"><span>TW</span></a>
+                        <a href="#"><span>LI</span></a>
+                        <a href="#"><span>IG</span></a>
+                    </div>
+                    <ul type="none">
+                        <li><a href="#">support@jobfinder.com</a></li>
+                        <li><a href="#">1-800-JOB-LEAD</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 JobFinder. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of
+                        Service</a></p>
+            </div>
+        </div>
+    </footer> -->
+
+
+    <script>
+        let jobsurl = "https://cliff-zircon-guardian.glitch.me/jobs" ;
+
+        let maincontainer = document.querySelector(".maincontainer");
+        let senioritydd = document.getElementById("seniority");
+        let organizationdd = document.getElementById("organization");
+        let employment_typedd = document.getElementById("employment_type");
+        let titledd = document.getElementById("title");
+
+        let companycontainer = document.getElementsByClassName("companycontainer")[0];
+        let org_type_cmp = document.getElementById("org_type");
+        let org_cmp = document.getElementById("organization_comp");
+        let org_industry_cmp = document.getElementById("org_industry");
+
+        let filter1 = document.getElementsByClassName("filtercontainer")[0];
+        let filter2 = document.getElementsByClassName("filtercontainercomp")[0];
+
+        async function getJobData(){
+            try {
+                let response = await fetch (jobsurl);
+                if( !response.ok){
+                    throw new Error(" HTTP Error : ", response.status, response.statusText);
+                }
+                let data = await response.json();
+                localStorage.setItem("Jobs", JSON.stringify(data));
+                let jobs = JSON.parse(localStorage.getItem("Jobs"));
+                displayJobData(jobs);
+                displaydropdown(jobs);
+            } catch (err) {
+                console.log(err)  
+            }
+        }
+
+        function displayJobData(jobs){
+            maincontainer.innerHTML = "";
+            companycontainer.innerHTML = '';
+            jobs.map(obj => {
+                // console.log(obj);
+                let card = document.createElement("div");
+                let comp = document.createElement("div");
+                card.className = "card";
+                comp.className = "comp";
+                let {title, seniority,organization_logo,linkedin_org_url, linkedin_org_industry,employment_type,linkedin_org_type, linkedin_org_slogan,linkedin_org_description, organization, url} = obj;
+                card.innerHTML = `
+                    <img src="${organization_logo}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${organization}</h5>
+                        <p><b>Job Title :</b> ${title} </p>
+                        <p class = "card-text"><b> Employment Type : </b>${employment_type}</p>
+                        <p class = "card-text"> <b>Seniority :</b> ${seniority}</p>
+                        <p class = "card-text description" > <b>Decription : </b>${linkedin_org_description}</p><br>
+                        <a href="${url}" class="btn btn-primary">Apply </a>
+                    </div>
+                `;
+                comp.innerHTML = `
+                    <img src="${organization_logo}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${organization}</h5>
+                        <p><b>Industry :</b> ${linkedin_org_industry} </p>
+                        <p class = "card-text"><b>Slogan : </b>${linkedin_org_slogan}</p>
+                        <p class = "card-text"> <b>Organization type :</b> ${linkedin_org_type}</p>
+                        <p class = "card-text description" > <b>Decription : </b>${linkedin_org_description}</p><br>
+                        <a href="${linkedin_org_url}" class="btn btn-primary">More </a>
+                    </div>
+                `
+                maincontainer.appendChild(card);
+                companycontainer.appendChild(comp);
+                
+            });
+        }
+
+        function displaydropdown(jobs){
+            senioritydd.innerHTML = '';
+            organizationdd.innerHTML = '';
+            titledd.innerHTML='';
+            employment_typedd.innerHTML = '';
+
+            org_cmp.innerHTML='';
+            org_industry_cmp.innerHTML = '';
+            org_type_cmp.innerHTML = '';
+
+
+            if(jobs.length != 0){
+                let seniArr = jobs.map(obj => obj.seniority);
+                let titleArr = jobs.map(obj => obj.title);
+                let organiArr = jobs.map(obj => obj.organization);
+                let employArr = jobs.map(obj => obj.employment_type[0]);
+
+                let orgArr = jobs.map(obj => obj.organization);
+                let indusArr = jobs.map(obj => obj.linkedin_org_industry);
+                let typeArr = jobs.map(obj => obj.linkedin_org_type);
+
+                console.log(orgArr, indusArr, typeArr)
+
+                let defaultOpt4 = document.createElement("option");
+                defaultOpt4.textContent = "Select Organization"
+                defaultOpt4.disabled = true
+                defaultOpt4.selected = true;
+
+                org_cmp.appendChild(defaultOpt4);
+
+                let defaultOpt6 = document.createElement("option");
+                defaultOpt6.textContent = "Select Type"
+                defaultOpt6.disabled = true
+                defaultOpt6.selected = true;
+
+                org_type_cmp.appendChild(defaultOpt6);
+
+                let defaultOpt5 = document.createElement("option");
+                defaultOpt5.textContent = "Select Industry"
+                defaultOpt5.disabled = true
+                defaultOpt5.selected = true;
+
+                org_industry_cmp.appendChild(defaultOpt5);
+
+                Array.from(new Set(orgArr)).forEach( org => {
+                    let option = document.createElement("option")
+                    option.innerHTML = org;
+                    option.value = org;
+                    org_cmp.appendChild(option);
+                })
+
+                Array.from(new Set(indusArr)).forEach( indus => {
+                    let option = document.createElement("option")
+                    option.innerHTML = indus;
+                    option.value = indus;
+                    org_industry_cmp.appendChild(option);
+                })
+
+                Array.from(new Set(typeArr)).forEach( type => {
+                    let option = document.createElement("option")
+                    option.innerHTML = type;
+                    option.value = type;
+                    org_type_cmp.appendChild(option);
+                })
+
+                let defaultOpt = document.createElement("option");
+                defaultOpt.textContent = "Select Seniority"
+                defaultOpt.disabled = true
+                defaultOpt.selected = true;
+
+                senioritydd.appendChild(defaultOpt);
+
+                let defaultOpt1 = document.createElement("option");
+                defaultOpt1.textContent = "Select Organization"
+                defaultOpt1.disabled = true
+                defaultOpt1.selected = true;
+
+                organizationdd.appendChild(defaultOpt1);
+
+                let defaultOpt3 = document.createElement("option");
+                defaultOpt3.textContent = "Select Title"
+                defaultOpt3.disabled = true
+                defaultOpt3.selected = true;
+                
+                titledd.appendChild(defaultOpt3);
+
+                let defaultOpt2 = document.createElement("option");
+                defaultOpt2.textContent = "Select Employment_Type"
+                defaultOpt2.disabled = true
+                defaultOpt2.selected = true;
+
+                employment_typedd.appendChild(defaultOpt2);
+
+                Array.from(new Set(seniArr)).forEach( seniority => {
+                    let option = document.createElement("option")
+                    option.innerHTML = seniority;
+                    option.value = seniority;
+                    senioritydd.appendChild(option);
+                })
+
+                Array.from(new Set(organiArr)).forEach( organization => {
+                    let option = document.createElement("option")
+                    option.innerHTML = organization;
+                    option.value = organization;
+                    organizationdd.appendChild(option);
+                })
+
+                Array.from(new Set(titleArr)).forEach( title => {
+                    let option = document.createElement("option")
+                    option.innerHTML = title;
+                    option.value = title;
+                    titledd.appendChild(option);
+                })
+
+                Array.from(new Set(employArr)).forEach( employment_type => {
+                    let option = document.createElement("option")
+                    option.innerHTML = employment_type;
+                    option.value = employment_type;
+                    employment_typedd.appendChild(option);
+                })
+            }    
+        }
+
+        function filterData(seniority){
+            let jobs = JSON.parse(localStorage.getItem("Jobs"));
+            let result = jobs.filter(obj => obj.seniority == seniority);
+            displayJobData(result);
+        }
+
+        function filterData1(title){
+            let jobs = JSON.parse(localStorage.getItem("Jobs"));
+            let result = jobs.filter(obj => obj.title == title);
+            displayJobData(result);
+        }
+
+        function filterData2(organization){
+            let jobs = JSON.parse(localStorage.getItem("Jobs"));
+            let result = jobs.filter(obj => obj.organization == organization);
+            displayJobData(result);
+        }
+
+        function filterData3(employment_type){
+            let jobs = JSON.parse(localStorage.getItem("Jobs"));
+            let result = jobs.filter(obj => obj.employment_type == employment_type);
+            displayJobData(result);
+        }
+
+        function filterData4(organization){
+            let jobs = JSON.parse(localStorage.getItem("Jobs"));
+            let result = jobs.filter(obj => obj.organization == organization);
+            displayJobData(result);
+        }
+
+        function filterData5(industry){
+            let jobs = JSON.parse(localStorage.getItem("Jobs"));
+            let result = jobs.filter(obj => obj.linkedin_org_industry == industry);
+            displayJobData(result);
+        }
+
+        function filterData6(type){
+            let jobs = JSON.parse(localStorage.getItem("Jobs"));
+            let result = jobs.filter(obj => obj.linkedin_org_type == type);
+            displayJobData(result);
+        }
+
+        function displayjob(){
+            maincontainer.style.display = "grid";
+            companycontainer.style.display = "none";
+            filter1.style.display = "flex";
+            filter2.style.display = 'none';
+        }
+
+        function displaycompany(){
+            maincontainer.style.display = "none";
+            companycontainer.style.display = "grid";
+            filter1.style.display = "none";
+            filter2.style.display = "flex";
+        }
+    
+
+        senioritydd.addEventListener("change", seniority => filterData(seniority.target.value));
+        titledd.addEventListener("change", title => filterData1(title.target.value));
+        organizationdd.addEventListener("change", organization => filterData2(organization.target.value));
+        employment_typedd.addEventListener("change", employment_type => filterData3(employment_type.target.value));
+
+        org_cmp.addEventListener("change", org => filterData4(org.target.value));
+        org_industry_cmp.addEventListener("change", org => filterData5(org.target.value));
+        org_type_cmp.addEventListener("change", org => filterData6(org.target.value));
+
+    getJobData();
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>
